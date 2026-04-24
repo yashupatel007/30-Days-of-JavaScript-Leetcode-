@@ -1,0 +1,16 @@
+/**
+ * @param {Object|Array} obj
+ * @return {boolean}
+ */
+var isEmpty = function(obj) {
+    //// 1st approach 
+    // for(let x in obj)
+    //     return false;
+    // return true;
+    //2nd approach
+    const s= Object.keys(obj).length;
+    if(s===0)
+        return true;
+    return false;
+
+};
