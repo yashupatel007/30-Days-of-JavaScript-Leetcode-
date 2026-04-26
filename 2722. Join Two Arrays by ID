@@ -1,0 +1,31 @@
+/**
+ * @param {Array} arr1
+ * @param {Array} arr2
+ * @return {Array}
+ */
+var join = function(arr1, arr2) {
+    const mp={};
+    for(let x of arr1)
+    {
+        const key= x.id;
+        mp[key]=x;
+    }
+    for(const x of arr2)
+    {
+        const key=x.id;
+        if(!mp[key])
+            mp[key]=x;
+        else
+        {
+            mp[key]={...mp[key],...x};
+        }
+    }
+    // const arr=[];
+    // for(const key in mp)
+    // {
+    //     arr.push(mp[key]);
+    // }
+    const arr=Object.values(mp);// simplify it by using 1 line code
+    arr.sort((a,b)=>a.id-b.id);
+    return arr;
+};
