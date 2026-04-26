@@ -1,0 +1,35 @@
+/**
+ * @param {Object|Array} obj
+ * @return {Object|Array}
+ */
+function compactArray(arr)//fn to check the array
+{
+    const ans=[];
+    for(const item of arr)
+    {
+        if(item)
+            ans.push(compactObject(item));// NOTE- calling the compactObject fn gain to evaluate
+    }
+    return ans;
+};
+function compactDict(obj)//fn to check the object
+{
+    const ans={};
+    for(const key in obj)
+    {
+        if(obj[key])
+            ans[key]=compactObject(obj[key]);
+    }
+    return ans;
+};
+var compactObject = function(obj) {
+    if(typeof obj !=='object' || obj===null)// base case
+        return obj;
+    //check for array
+    if(Array.isArray(obj))
+    {
+        return compactArray(obj);
+    }
+    //handle the object
+    return compactDict(obj);
+};
