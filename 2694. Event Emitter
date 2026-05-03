@@ -1,0 +1,58 @@
+class EventEmitter {
+    
+    /**
+     * @param {string} eventName
+     * @param {Function} callback
+     * @return {Object}
+     */
+     constructor(){
+        this.events={};
+     }
+    subscribe(eventName, callback) {
+        //check this event name exist in dict or not
+        if(!this.events[eventName])
+             this.events[eventName]=[];
+
+        this.events[eventName].push(callback);
+
+        return {
+            unsubscribe: () => {
+                let arr1=this.events[eventName].filter(fn=>fn!==callback);
+                this.events[eventName]=arr1;
+            }
+        };
+    }
+    
+    /**
+     * @param {string} eventName
+     * @param {Array} args
+     * @return {Array}
+     */
+    emit(eventName, args = []) {
+        if(!this.events[eventName])
+        {
+            return [];
+        }
+        else
+        {
+            let arr=[];
+            for(let x of this.events[eventName])
+            {
+                arr.push(x(...args));
+            }
+            return arr;
+        }
+    }
+}
+
+/**
+ * const emitter = new EventEmitter();
+ *
+ * // Subscribe to the onClick event with onClickCallback
+ * function onClickCallback() { return 99 }
+ * const sub = emitter.subscribe('onClick', onClickCallback);
+ *
+ * emitter.emit('onClick'); // [99]
+ * sub.unsubscribe(); // undefined
+ * emitter.emit('onClick'); // []
+ */
